@@ -45,4 +45,19 @@ for filepath in filepaths:
         pdf.cell(30, 8, str(row['price_per_unit']), border=1)
         pdf.cell(30, 8, str(row['total_price']), new_x=XPos.LMARGIN, new_y=YPos.NEXT, border=1)
 
+    #total sum of total_price
+    pdf.set_font("Times", "B", 10)
+    for col in header:
+        if col == "Product Name":
+            pdf.cell(70, 8, '', border=1)
+        elif col == "Total Price":
+            pdf.cell(30, 8, str(df['total_price'].sum()), border=1)
+        else:
+            pdf.cell(30, 8, '', border=1)
+    pdf.ln()
+    # add company name and logo
+    pdf.set_font("Times", "B", 14)
+    pdf.cell(30, 8, "Marty's Company", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.image("pythonhow.png", x=pdf.get_x(), y=pdf.get_y(), w=10)
+
     pdf.output(f"{pdf_path}/{filename}.pdf")
